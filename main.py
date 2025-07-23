@@ -31,10 +31,9 @@ def on_a_pressed():
 controller.A.on_event(ControllerButtonEvent.PRESSED, on_a_pressed)
 
 def on_on_overlap(sprite, otherSprite):
-    mySprite3.set_velocity(0, 0)
-    mySprite.set_velocity(0, 0)
-    mySprite3.follow(None)
-    animation.run_image_animation(mySprite,
+    sprite.follow(None)
+    otherSprite.follow(None)
+    animation.run_image_animation(sprite,
         [img("""
                 . . . . . . f . . . f . . . . .
                 . . . . . f 1 f . f 1 f . . . .
@@ -107,23 +106,11 @@ def on_on_overlap(sprite, otherSprite):
                 . . . f 1 f f f f f f f 1 f . .
                 . . f 1 f . f 1 f 1 f . f 1 f .
                 """)],
-        100,
-        False)
+        500,
+        True)
 sprites.on_overlap(SpriteKind.Cat, SpriteKind.Dog, on_on_overlap)
 
-def on_b_pressed():
-    global mySprite3
-    mySprite3 = sprites.create_projectile_from_side(assets.image("""
-        Dog
-        """), 5, 5)
-    mySprite3.set_kind(SpriteKind.Dog)
-    mySprite3.set_position(22, 104)
-    mySprite3.follow(mySprite4)
-controller.B.on_event(ControllerButtonEvent.PRESSED, on_b_pressed)
-
-mySprite3: Sprite = None
 mySprite: Sprite = None
-mySprite4: Sprite = None
 mySprite2: Sprite = None
 scene.set_background_image(img("""
     9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
@@ -287,7 +274,10 @@ mySprite4 = sprites.create(img("""
     SpriteKind.player)
 mySprite4.set_position(112, 104)
 mySprite2.set_position(57, 104)
-
-def on_forever():
-    pass
-forever(on_forever)
+mySprite3 = sprites.create_projectile_from_side(assets.image("""
+    Dog
+    """), 5, 5)
+info.set_life(150)
+mySprite3.set_kind(SpriteKind.Dog)
+mySprite3.set_position(22, 104)
+mySprite3.follow(mySprite4)
