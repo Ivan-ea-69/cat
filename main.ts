@@ -29,6 +29,7 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
 sprites.onOverlap(SpriteKind.Cat, SpriteKind.Dog, function (sprite, otherSprite) {
     sprite.setVelocity(0, 0)
     otherSprite.setVelocity(0, 0)
+    sprite.follow(null)
     animation.runImageAnimation(
     mySprite,
     [img`
@@ -104,7 +105,7 @@ sprites.onOverlap(SpriteKind.Cat, SpriteKind.Dog, function (sprite, otherSprite)
     true
     )
     animation.runImageAnimation(
-    otherSprite,
+    mySprite3,
     [img`
         ................................
         ................................
@@ -275,13 +276,22 @@ sprites.onOverlap(SpriteKind.Cat, SpriteKind.Dog, function (sprite, otherSprite)
     true
     )
 })
-sprites.onOverlap(SpriteKind.Cat, SpriteKind.Dog_home, function (sprite, otherSprite) {
-    sprite.setVelocity(0, 0)
+sprites.onOverlap(SpriteKind.Player, SpriteKind.Player, function (sprite3, otherSprite3) {
+	
 })
-sprites.onOverlap(SpriteKind.Dog, SpriteKind.Cat_home, function (sprite, otherSprite) {
-    sprite.setVelocity(0, 0)
+controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
+    mySprite3 = sprites.createProjectileFromSide(assets.image`Dog`, 30, 0)
+    mySprite3.setKind(SpriteKind.Dog)
+    mySprite3.setPosition(22, 104)
+})
+sprites.onOverlap(SpriteKind.Cat, SpriteKind.Dog_home, function (sprite2, otherSprite2) {
+    sprite2.setVelocity(0, 0)
+})
+sprites.onOverlap(SpriteKind.Dog, SpriteKind.Cat_home, function (sprite4, otherSprite4) {
+    sprite4.setVelocity(0, 0)
 })
 let mySprite: Sprite = null
+let mySprite3: Sprite = null
 scene.setBackgroundImage(img`
     9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
     9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
@@ -442,7 +452,7 @@ let mySprite4 = sprites.create(img`
     `, SpriteKind.Cat_home)
 mySprite2.setPosition(35, 107)
 mySprite4.setPosition(127, 104)
-let mySprite3 = sprites.createProjectileFromSide(assets.image`Dog`, 30, 0)
+mySprite3 = sprites.createProjectileFromSide(assets.image`Dog`, 30, 0)
 info.setLife(150)
 mySprite3.setKind(SpriteKind.Dog)
 mySprite3.setPosition(22, 104)
